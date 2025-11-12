@@ -1,0 +1,7 @@
+<!-- templates/fragments/footer.html -->
+<footer class="footer bg-dark text-light text-center py-3 mt-auto" th:fragment="footer">
+    <p class="mb-0">
+        &copy; <span th:text="${#dates.format(#dates.createNow(), 'yyyy')}"></span>
+        Shop Localization Manager
+    </p>
+</footer>

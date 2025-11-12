@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navbar"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">Shop Localization Manager</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/register}">Register</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
+                </li>
+
+                <li class="nav-item d-flex align-items-center" sec:authorize="isAuthenticated()">
+                    <span class="navbar-text me-3 text-light">
+                        Hello, <strong th:text="${#authentication.name}">User</strong>!
+                    </span>
+                    <form th:action="@{/logout}" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-outline-light btn-sm">Logout</button>
+                    </form>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
