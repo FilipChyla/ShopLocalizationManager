@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | Shop Localization Manager</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="flex-grow-1">
+    <div class="container py-5">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="fw-bold text-dark mb-1">Devices List by Location</h1>
+                <p class="text-muted mb-0">Browse all available products grouped by location or category</p>
+            </div>
+            <a sec:authorize="hasRole('ADMIN')" th:href="@{/products/new}" class="btn btn-primary btn-lg">
+                <i class="bi bi-plus-lg"></i> Add New Product
+            </a>
+        </div>
+
+        <ul class="nav nav-tabs" id="locationTabs" role="tablist">
+            <li class="nav-item" th:each="entry, stat : ${productsByCategory}">
+                <button class="nav-link"
+                        th:classappend="${stat.index == 0} ? 'active'"
+                        th:id="'tab-' + ${stat.index}"
+                        data-bs-toggle="tab"
+                        th:data-bs-target="'#loc-' + ${stat.index}"
+                        type="button"
+                        role="tab"
+                        th:text="${entry.key}">
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-4">
+            <div th:each="entry, stat : ${productsByCategory}"
+                 class="tab-pane fade"
+                 th:classappend="${stat.index == 0} ? 'show active'"
+                 th:id="'loc-' + ${stat.index}"
+                 role="tabpanel"
+                 th:aria-labelledby="'tab-' + ${stat.index}">
+
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body p-0">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Manufacturer</th>
+                                <th>ProductCode</th>
+                                <th>Price</th>
+                                <th scope="col" class="text-center">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="product : ${entry.value}">
+                                <td th:text="${product.name}"></td>
+                                <td th:text="${product.manufacturer}"></td>
+                                <td th:text="${product.productCode}"></td>
+                                <td th:text="${#numbers.formatDecimal(product.price, 1, 2)} + ' $'"></td>
+                                <td class="text-center">
+                                    <a th:href="@{'/products/' + ${product.id}}" class="btn btn-sm btn-outline-info">
+                                        View
+                                    </a>
+                                    <form sec:authorize="hasRole('ADMIN')" th:action="@{'/products/delete/' + ${product.id}}" method="post"
+                                          class="d-inline"
+                                          onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                        <input type="hidden" name="_method" value="delete"/>
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr th:if="${#lists.isEmpty(entry)}">
+                                <td colspan="3" class="text-center text-muted py-4">
+                                    No products found in this category.
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

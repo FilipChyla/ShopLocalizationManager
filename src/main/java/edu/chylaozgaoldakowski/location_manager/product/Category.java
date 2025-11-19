@@ -1,0 +1,16 @@
+package edu.chylaozgaoldakowski.location_manager.product;
+
+public enum Category {
+    FRESH_PRODUCE,
+    BAKERY_PRODUCTS,
+    DAIRY_PRODUCTS,
+    MEAT_AND_POULTRY,
+    SEAFOOD,
+    GRAINS_AND_CEREALS,
+    CANNED_AND_PACKAGED_FOODS,
+    SNACKS_AND_CONFECTIONERY,
+    BEVERAGES,
+    CONDIMENTS_AND_SAUCES,
+    FROZEN_FOODS,
+    HEALTH_AND_ORGANIC_FOODS
+}

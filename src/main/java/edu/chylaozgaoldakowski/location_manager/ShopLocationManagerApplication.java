@@ -1,4 +1,4 @@
-package edu.chylaozgaoldakowski.location_manager;
+ package edu.chylaozgaoldakowski.location_manager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
