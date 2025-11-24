@@ -20,6 +20,7 @@ public class ShopService implements IShopService {
         return shopRepository.findAll().stream().map(shopMapper::toDto).toList();
     }
 
+    @Override
     @PreAuthorize("hasRole('ADMIN')")
     public void save(ShopDto shopDto) {
         Shop shopEntity = new Shop();
