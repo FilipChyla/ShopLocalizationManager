@@ -16,6 +16,7 @@ public class ShopService implements IShopService {
         this.shopMapper = shopMapper;
     }
 
+    @Override
     public List<ShopDto> getAll() {
         return shopRepository.findAll().stream().map(shopMapper::toDto).toList();
     }
