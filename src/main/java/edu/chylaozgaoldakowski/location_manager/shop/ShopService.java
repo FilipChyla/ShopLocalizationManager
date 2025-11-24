@@ -22,7 +22,7 @@ public class ShopService implements IShopService {
     }
 
     @Override
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void save(ShopDto shopDto) {
         Shop shopEntity = new Shop();
         shopMapper.updateEntityFromDto(shopEntity, shopDto);
@@ -35,13 +35,13 @@ public class ShopService implements IShopService {
         return shopMapper.toDto(shopEntity);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Override
     public void deleteById(Long id) {
         shopRepository.deleteById(id);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Override
     public void update(Long id, ShopDto updatedDto) {
         Shop existingEntity = shopRepository.findById(id).orElseThrow();
