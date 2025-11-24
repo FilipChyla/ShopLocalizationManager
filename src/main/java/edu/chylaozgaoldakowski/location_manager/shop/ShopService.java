@@ -35,6 +35,7 @@ public class ShopService implements IShopService {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
+    @Override
     public void deleteById(Long id) {
         shopRepository.deleteById(id);
     }
