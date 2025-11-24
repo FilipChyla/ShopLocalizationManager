@@ -29,6 +29,7 @@ public class ShopService implements IShopService {
         shopRepository.save(shopEntity);
     }
 
+    @Override
     public ShopDto getById(Long id) {
         Shop shopEntity = shopRepository.findById(id).orElseThrow();
         return shopMapper.toDto(shopEntity);
