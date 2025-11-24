@@ -40,6 +40,7 @@ public class ShopService implements IShopService {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
+    @Override
     public void update(Long id, ShopDto updatedDto) {
         Shop existingEntity = shopRepository.findById(id).orElseThrow();
         shopMapper.updateEntityFromDto(existingEntity, updatedDto);
