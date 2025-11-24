@@ -16,6 +16,6 @@ public class ShopDto {
     private String name;
     @NotBlank(message = "Address is required")
     private String address;
-    @NotBlank(message = "Address is required")
+    @NotBlank(message = "City is required")
     private String city;
 }
