@@ -25,6 +25,17 @@
                 <input type="password" th:field="*{password}" class="form-control" placeholder="Enter password" required>
                 <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red;"></div>
             </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Assigned Shop</label>
+                <select th:field="*{assignedShopId}" class="form-select" required>
+                    <option value="">-- Select Shop --</option>
+                    <option th:each="shop : ${shops}"
+                            th:value="${shop.id}"
+                            th:text="${shop.name}">
+                    </option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-success w-100">Register</button>
         </form>
 

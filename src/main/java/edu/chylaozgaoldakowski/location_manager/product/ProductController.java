@@ -1,8 +1,10 @@
 package edu.chylaozgaoldakowski.location_manager.product;
 
+import edu.chylaozgaoldakowski.location_manager.user.CustomUserDetails;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -51,9 +53,9 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public String getProduct(Model model, @PathVariable Long id) {
+    public String getProduct(Model model, @PathVariable Long id, @AuthenticationPrincipal CustomUserDetails user) {
         model.addAttribute("product", productService.getProductDetailsById(id));
-
+        model.addAttribute("entries", productService.getLocalizationsForCurrentUser(id, user));
         return "product/product-details";
     }
 

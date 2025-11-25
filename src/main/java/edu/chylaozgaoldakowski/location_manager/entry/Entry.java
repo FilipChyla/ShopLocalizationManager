@@ -1,5 +1,6 @@
-package edu.chylaozgaoldakowski.location_manager.user;
+package edu.chylaozgaoldakowski.location_manager.entry;
 
+import edu.chylaozgaoldakowski.location_manager.product.Product;
 import edu.chylaozgaoldakowski.location_manager.shop.Shop;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,24 +8,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AppUser{
-
+@Entity
+public class Entry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String username;
-    @Column(nullable = false)
-    private String password;
     @ManyToOne
     @JoinColumn(name = "shop_id")
-    private Shop assignedShop;
+    private Shop shop;
 
-    private String role = "USER";
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+    private int amount;
+    private BigDecimal totalPrice;
 }
