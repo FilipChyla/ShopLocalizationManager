@@ -1,6 +1,7 @@
 package edu.chylaozgaoldakowski.location_manager.shop;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@Builder
 public class ShopData {
     private String name;
     private String address;
@@ -17,6 +19,7 @@ public class ShopData {
 
     @Getter
     @Setter
+    @Builder
     public static class EntryData {
         private ProductData product;
         private int amount;
@@ -24,6 +27,7 @@ public class ShopData {
     }
     @Getter
     @Setter
+    @Builder
     public static class ProductData {
         private String name;
         private String manufacturer;

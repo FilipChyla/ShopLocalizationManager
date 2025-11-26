@@ -19,35 +19,30 @@ public class ShopMapper {
     }
 
     public ShopData toShopData(Shop shop, List<Entry> entries) {
-        ShopData shopData = new ShopData();
-        shopData.setName(shop.getName());
-        shopData.setAddress(shop.getAddress());
-        shopData.setCity(shop.getCity());
-
-        shopData.setEntries(
-                entries.stream()
+        return ShopData.builder()
+                .name(shop.getName())
+                .address(shop.getAddress())
+                .city(shop.getCity())
+                .entries(entries.stream()
                         .map(ShopMapper::toEntryData)
-                        .toList()
-        );
-
-        return shopData;
-    }
-    private static ShopData.EntryData toEntryData(Entry entry) {
-        ShopData.EntryData e = new ShopData.EntryData();
-
-        e.setProduct(toProductData(entry.getProduct()));
-        e.setAmount(entry.getAmount());
-        e.setTotalPrice(entry.getTotalPrice());
-        return e;
+                        .toList()).build();
     }
 
-    private static ShopData.ProductData toProductData(Product product){
-        ShopData.ProductData p = new ShopData.ProductData();
-        p.setName(product.getName());
-        p.setManufacturer(product.getManufacturer());
-        p.setCategory(product.getCategory().toString().toLowerCase());
-        p.setProductCode(product.getProductCode());
-        p.setDescription(product.getDescription() != null ? product.getDescription() : "");
-        return p;
+    private static ShopData.EntryData toEntryData(Entry e) {
+        return ShopData.EntryData.builder()
+                .amount(e.getAmount())
+                .totalPrice(e.getTotalPrice())
+                .product(toProductData(e.getProduct()))
+                .build();
+    }
+
+    private static ShopData.ProductData toProductData(Product p) {
+        return ShopData.ProductData.builder()
+                .name(p.getName())
+                .manufacturer(p.getManufacturer())
+                .category(p.getCategory().toString().toLowerCase())
+                .productCode(p.getProductCode())
+                .description(p.getDescription() != null ? p.getDescription() : "")
+                .build();
     }
 }
