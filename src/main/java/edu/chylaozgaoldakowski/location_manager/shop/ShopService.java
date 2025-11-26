@@ -56,6 +56,7 @@ public class ShopService implements IShopService {
         shopRepository.save(existingEntity);
     }
 
+    @Override
     public List<EntryDto> getEntriesById(Long id) {
         return entryRepository.findByShop_Id(id).stream().map(entryMapper::toDto).toList();
     }
