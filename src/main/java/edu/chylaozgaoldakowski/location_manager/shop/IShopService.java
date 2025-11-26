@@ -1,6 +1,5 @@
 package edu.chylaozgaoldakowski.location_manager.shop;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import edu.chylaozgaoldakowski.location_manager.entry.EntryDto;
 
 import java.util.List;
@@ -12,5 +11,5 @@ public interface IShopService {
     void deleteById(Long id);
     void update(Long id, ShopDto updatedDto);
     List<EntryDto> getEntriesById(Long id);
-    ShopData getJsonStringFor(Long id) throws JsonProcessingException;
+    ShopData getJsonStringFor(Long id);
 }
