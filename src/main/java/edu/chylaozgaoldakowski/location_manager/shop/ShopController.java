@@ -81,7 +81,7 @@ public class ShopController {
     }
 
     @GetMapping("/{id}/shop-data-download")
-    public ResponseEntity<ShopData> downloadShopData(@PathVariable Long id) throws JsonProcessingException {
+    public ResponseEntity<ShopData> downloadShopData(@PathVariable Long id) {
         ShopData shopData = shopService.getJsonStringFor(id);
         String filename = "shop-" + id + ".json";
 
