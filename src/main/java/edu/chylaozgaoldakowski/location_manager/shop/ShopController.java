@@ -44,6 +44,7 @@ public class ShopController {
     @GetMapping("/{id}")
     public String viewShop(@PathVariable Long id, Model model) {
         model.addAttribute("shop", shopService.getById(id));
+        model.addAttribute("entries", shopService.getEntriesById(id));
         return "shop/shop-details";
 
     }
