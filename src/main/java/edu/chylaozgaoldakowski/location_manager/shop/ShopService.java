@@ -1,5 +1,6 @@
 package edu.chylaozgaoldakowski.location_manager.shop;
 
+import edu.chylaozgaoldakowski.location_manager.entry.Entry;
 import edu.chylaozgaoldakowski.location_manager.entry.EntryDto;
 import edu.chylaozgaoldakowski.location_manager.entry.EntryMapper;
 import edu.chylaozgaoldakowski.location_manager.entry.EntryRepository;
@@ -59,5 +60,13 @@ public class ShopService implements IShopService {
     @Override
     public List<EntryDto> getEntriesById(Long id) {
         return entryRepository.findByShop_Id(id).stream().map(entryMapper::toDto).toList();
+    }
+
+    @Override
+    public ShopData getShopDataById(Long id) {
+        Shop shop = shopRepository.findById(id).orElseThrow();
+        List<Entry> entries = entryRepository.findByShop_Id(id);
+
+        return shopMapper.toShopData(shop, entries);
     }
 }
