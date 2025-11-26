@@ -52,6 +52,7 @@ public class EntryService implements IEntryService{
         }
     }
 
+    @Override
     public EntryDto getById(Long entryId, CustomUserDetails currentUser) {
         Entry entry = entryRepository.findById(entryId).orElseThrow();
         if (isUserHasAccessToShop(currentUser, entry.getShop())) {
