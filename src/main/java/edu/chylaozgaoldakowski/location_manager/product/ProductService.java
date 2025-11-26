@@ -35,6 +35,7 @@ public class ProductService implements IProductService {
         return productMapper.toProductDetailsDto(product);
     }
 
+    @Override
     public List<ProductLocalizationDto> getLocalizationsForCurrentUser(Long id, @AuthenticationPrincipal CustomUserDetails currentUser) {
         List<ProductLocalizationDto> localizations = entryRepository.findByProduct_Id(id)
                 .stream()
