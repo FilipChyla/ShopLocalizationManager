@@ -22,10 +22,9 @@
                 <h1 class="fw-bold text-dark" th:text="${shop.name}">Shop Name</h1>
                 <p class="text-muted mb-0">Details of the selected shop</p>
             </div>
-            <!-- Add New Entry Button -->
-            <a sec:authorize="isAuthenticated()"
-               th:if="${#authentication.principal.shopId == shop.id}" th:href="@{'/entries/new?shopId=' + ${shop.id}}" class="btn btn-success">
-                + Add New Entry
+
+            <a th:href="@{'/shops/' + ${shop.id} + '/shop-data-download' }" class="btn btn-primary">
+                Get Shop Data In JSON Format
             </a>
         </div>
 
@@ -43,6 +42,13 @@
                     <dd class="col-sm-9" th:text="${shop.city}"></dd>
                 </dl>
             </div>
+        </div>
+
+        <div class="mb-4 text-end">
+            <a sec:authorize="isAuthenticated()"
+               th:if="${#authentication.principal.shopId == shop.id}" th:href="@{'/entries/new?shopId=' + ${shop.id}}" class="btn btn-success">
+                + Add New Entry
+            </a>
         </div>
 
         <!-- Entries Table -->

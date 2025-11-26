@@ -2,11 +2,17 @@ package edu.chylaozgaoldakowski.location_manager.shop;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.nio.charset.StandardCharsets;
 
 @Controller
 @RequestMapping("/shops")
@@ -71,5 +77,18 @@ public class ShopController {
     public String deleteShop(@PathVariable Long id) {
             shopService.deleteById(id);
             return "redirect:/shops";
+    }
+
+    @GetMapping("/{id}/shop-data-download")
+    public ResponseEntity<ShopData> downloadShopData(@PathVariable Long id) {
+        ShopData shopData = shopService.getShopDataById(id);
+        String filename = "shop-" + id + ".json";
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .header(HttpHeaders.CONTENT_DISPOSITION, ContentDisposition.builder("attachment")
+                        .filename(filename, StandardCharsets.UTF_8)
+                        .build().toString())
+                .body(shopData);
     }
 }

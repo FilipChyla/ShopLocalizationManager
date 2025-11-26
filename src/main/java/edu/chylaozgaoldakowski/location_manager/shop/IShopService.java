@@ -11,4 +11,5 @@ public interface IShopService {
     void deleteById(Long id);
     void update(Long id, ShopDto updatedDto);
     List<EntryDto> getEntriesById(Long id);
+    ShopData getShopDataById(Long id);
 }
