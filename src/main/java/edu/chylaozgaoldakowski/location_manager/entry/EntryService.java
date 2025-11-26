@@ -62,6 +62,7 @@ public class EntryService implements IEntryService{
 
     }
 
+    @Override
     public void update(Long id, EntryDto updatedEntry, CustomUserDetails currentUser) {
         Entry entryToUpdate = entryRepository.findById(id).orElseThrow();
 
