@@ -28,7 +28,7 @@ public class EntryService implements IEntryService{
     public void save(EntryDto entryDto, CustomUserDetails currentUser) {
         Shop currentShop = shopRepository.findById(entryDto.getShopId()).orElseThrow();
 
-        if (isUserHasAccessToShop(currentUser, currentShop)){
+        if (doesUserHasAccessToShop(currentUser, currentShop)){
             Entry newEntry = new Entry();
 
             newEntry.setShop(currentShop);
@@ -43,10 +43,11 @@ public class EntryService implements IEntryService{
         }
     }
 
+    @Override
     public void deleteById(Long entryId, CustomUserDetails currentUser) {
         Entry entry = entryRepository.findById(entryId).orElseThrow();
 
-        if (isUserHasAccessToShop(currentUser, entry.getShop())){
+        if (doesUserHasAccessToShop(currentUser, entry.getShop())){
             entryRepository.deleteById(entryId);
         }else {
             throw new AccessDeniedException("Cannot delete entry");
@@ -56,7 +57,7 @@ public class EntryService implements IEntryService{
     @Override
     public EntryDto getById(Long entryId, CustomUserDetails currentUser) {
         Entry entry = entryRepository.findById(entryId).orElseThrow();
-        if (isUserHasAccessToShop(currentUser, entry.getShop())) {
+        if (doesUserHasAccessToShop(currentUser, entry.getShop())) {
             return entryMapper.toDto(entry);
         } else {
             throw new AccessDeniedException("Cannot access entry with id: " + entryId);
@@ -68,7 +69,7 @@ public class EntryService implements IEntryService{
     public void update(Long id, EntryDto updatedEntry, CustomUserDetails currentUser) {
         Entry entryToUpdate = entryRepository.findById(id).orElseThrow();
 
-        if (isUserHasAccessToShop(currentUser, entryToUpdate.getShop())){
+        if (doesUserHasAccessToShop(currentUser, entryToUpdate.getShop())){
             Product product = productRepository.findById(updatedEntry.getProductId()).orElseThrow();
             entryToUpdate.setProduct(product);
 
@@ -83,7 +84,7 @@ public class EntryService implements IEntryService{
         }
 
     }
-    private boolean isUserHasAccessToShop(CustomUserDetails user, Shop shop){
+    private boolean doesUserHasAccessToShop(CustomUserDetails user, Shop shop){
         if (user == null) {
             return false;
         }

@@ -69,6 +69,7 @@ class EntryController {
                               @AuthenticationPrincipal CustomUserDetails currentUser) {
         if (result.hasErrors()) {
             model.addAttribute("products", productService.getAllProducts());
+            model.addAttribute("shop", shopService.getById(updatedEntry.getShopId()));
             return "entry/entry-form";
         }
         entryService.update(id, updatedEntry, currentUser);

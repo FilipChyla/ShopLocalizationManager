@@ -30,5 +30,7 @@ public class CustomUserDetails implements UserDetails {
         return user.getUsername();
     }
 
-    public Long getShopId(){return user.getAssignedShop().getId();}
+    public Long getShopId() {
+        return user.getAssignedShop() != null ? user.getAssignedShop().getId() : null;
+    }
 }

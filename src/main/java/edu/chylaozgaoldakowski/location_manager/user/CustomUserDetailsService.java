@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         newUser.setRole("USER");
         newUser.setPassword(appUser.getPassword());
 
-        Shop usersShop = shopRepository.getReferenceById(appUser.getAssignedShopId());
+        Shop usersShop = shopRepository.findById(appUser.getAssignedShopId()).orElseThrow();
         newUser.setAssignedShop(usersShop);
 
         userRepository.save(newUser);
