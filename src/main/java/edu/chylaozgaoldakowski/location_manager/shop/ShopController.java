@@ -1,6 +1,5 @@
 package edu.chylaozgaoldakowski.location_manager.shop;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ContentDisposition;
@@ -82,7 +81,7 @@ public class ShopController {
 
     @GetMapping("/{id}/shop-data-download")
     public ResponseEntity<ShopData> downloadShopData(@PathVariable Long id) {
-        ShopData shopData = shopService.getJsonStringFor(id);
+        ShopData shopData = shopService.getShopDataById(id);
         String filename = "shop-" + id + ".json";
 
         return ResponseEntity.ok()

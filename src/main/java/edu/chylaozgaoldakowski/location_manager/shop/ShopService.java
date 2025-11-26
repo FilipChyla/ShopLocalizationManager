@@ -63,7 +63,7 @@ public class ShopService implements IShopService {
     }
 
     @Override
-    public ShopData getJsonStringFor(Long id) {
+    public ShopData getShopDataById(Long id) {
         Shop shop = shopRepository.findById(id).orElseThrow();
         List<Entry> entries = entryRepository.findByShop_Id(id);
 
