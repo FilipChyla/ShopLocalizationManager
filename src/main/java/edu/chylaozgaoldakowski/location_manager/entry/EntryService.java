@@ -24,6 +24,7 @@ public class EntryService implements IEntryService{
         this.entryMapper = entryMapper;
     }
 
+    @Override
     public void save(EntryDto entryDto, CustomUserDetails currentUser) {
         Shop currentShop = shopRepository.findById(entryDto.getShopId()).orElseThrow();
 
